@@ -4,7 +4,7 @@
 from __future__ import annotations
 
 import onnx
-import onnx.onnx_cpp2py_export.printer as C  # noqa: N812
+from onnx.onnx_cpp2py_export import printer as C  # noqa: N812
 
 
 def to_text(proto: onnx.ModelProto | onnx.FunctionProto | onnx.GraphProto) -> str:
