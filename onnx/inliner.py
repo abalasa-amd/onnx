@@ -5,7 +5,7 @@
 from __future__ import annotations
 
 import onnx
-import onnx.onnx_cpp2py_export.inliner as C  # noqa: N812
+from onnx.onnx_cpp2py_export import inliner as C  # noqa: N812
 
 
 def inline_local_functions(
