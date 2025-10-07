@@ -10,7 +10,7 @@ default domain ("" or "ai.onnx").
 from __future__ import annotations
 
 import onnx
-import onnx.onnx_cpp2py_export.version_converter as C  # noqa: N812
+from onnx.onnx_cpp2py_export import version_converter as C  # noqa: N812
 from onnx import ModelProto
 
 
