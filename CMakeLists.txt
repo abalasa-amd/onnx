@@ -480,7 +480,7 @@ if(ONNX_BUILD_PYTHON)
     FetchContent_MakeAvailable(pybind11)
   endif()
 
-  pybind11_add_module(onnx_cpp2py_export MODULE "${ONNX_ROOT}/onnx/cpp2py_export.cc")
+  pybind11_add_module(onnx_cpp2py_export STATIC "${ONNX_ROOT}/onnx/cpp2py_export.cc")
 
   if(CMAKE_SYSTEM_NAME STREQUAL "AIX")
     # whole-archive linker option not available on AIX
