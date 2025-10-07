@@ -6,7 +6,7 @@ from __future__ import print_function
 from __future__ import unicode_literals
 
 from onnx import AttributeProto, FunctionProto
-import onnx.onnx_cpp2py_export.defs as C
+from onnx.onnx_cpp2py_export import defs as C
 
 from collections import defaultdict
 from typing import List, Dict

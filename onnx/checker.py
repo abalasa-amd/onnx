@@ -20,7 +20,7 @@ from onnx import (ValueInfoProto,
                   ModelProto,
                   GraphProto,
                   IR_VERSION)
-import onnx.onnx_cpp2py_export.checker as C
+from onnx.onnx_cpp2py_export import checker as C
 import onnx.defs
 from google.protobuf.message import Message
 from typing import TypeVar, Callable, Any, Type, cast, Union, Text

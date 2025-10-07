@@ -28,7 +28,7 @@ import multiprocessing
 TOP_DIR = os.path.realpath(os.path.dirname(__file__))
 SRC_DIR = os.path.join(TOP_DIR, 'onnx')
 TP_DIR = os.path.join(TOP_DIR, 'third_party')
-CMAKE_BUILD_DIR = os.path.join(TOP_DIR, '.setuptools-cmake-build')
+CMAKE_BUILD_DIR = os.getenv("ONNX_BUILD_DIR")
 PACKAGE_NAME = 'onnx'
 
 WINDOWS = (os.name == 'nt')
@@ -165,18 +165,29 @@ class cmake_build(setuptools.Command):
         cmake_build.built = True
         if not os.path.exists(CMAKE_BUILD_DIR):
             os.makedirs(CMAKE_BUILD_DIR)
+        link_path = os.getenv("ONNX_LINK_PATH")
+        prefix_path = os.getenv("ONNX_PREFIX_PATH")
+        py_prefix = os.getenv("ONNX_PY_PREFIX")
+        py_lib = os.getenv("ONNX_PY_LIB")
+        py_include = os.getenv("ONNX_PY_INCLUDE")
+        py_exe = os.getenv("ONNX_PY_EXE")
 
         with cd(CMAKE_BUILD_DIR):
             build_type = 'Release'
             # configure
             cmake_args = [
                 CMAKE,
-                '-DPYTHON_INCLUDE_DIR={}'.format(sysconfig.get_python_inc()),
-                '-DPYTHON_EXECUTABLE={}'.format(sys.executable),
+                f"-DPYTHON_INCLUDE_DIRS={py_include}",
+                f"-DPYTHON_EXECUTABLE={py_exe}",
+                f"-DCMAKE_PREFIX_PATH={prefix_path}",
+                f"-DCMAKE_LIBRARY_PATH={link_path}",
+                f"-DPYTHON_PREFIX={py_prefix}",
+                f"-DPYTHON_LIBRARIES={py_lib}",
                 '-DBUILD_ONNX_PYTHON=ON',
                 '-DCMAKE_EXPORT_COMPILE_COMMANDS=ON',
                 '-DONNX_NAMESPACE={}'.format(ONNX_NAMESPACE),
                 '-DPY_EXT_SUFFIX={}'.format(sysconfig.get_config_var('EXT_SUFFIX') or ''),
+                '-DONNX_USE_LITE_PROTO=OFF', # Protobuf_USE_STATIC_LIBS by default
             ]
             if COVERAGE:
                 cmake_args.append('-DONNX_COVERAGE=ON')
@@ -184,6 +195,7 @@ class cmake_build(setuptools.Command):
                 # in order to get accurate coverage information, the
                 # build needs to turn off optimizations
                 build_type = 'Debug'
+            build_type = os.getenv("ONNX_BUILD_TYPE")
             cmake_args.append('-DCMAKE_BUILD_TYPE=%s' % build_type)
             if WINDOWS:
                 cmake_args.extend([

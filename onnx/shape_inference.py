@@ -10,7 +10,7 @@ from __future__ import print_function
 from __future__ import unicode_literals
 
 import onnx
-import onnx.onnx_cpp2py_export.shape_inference as C
+from onnx.onnx_cpp2py_export import shape_inference as C
 from onnx import ModelProto
 from six import string_types
 from typing import Text

@@ -11,7 +11,7 @@ from __future__ import print_function
 from __future__ import unicode_literals
 
 import onnx
-import onnx.onnx_cpp2py_export.version_converter as C
+from onnx.onnx_cpp2py_export import version_converter as C
 from onnx import ModelProto
 from typing import Text, Sequence
 

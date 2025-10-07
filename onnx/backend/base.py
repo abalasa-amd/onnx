@@ -12,7 +12,7 @@ import six
 import numpy  # type: ignore
 
 import onnx.checker
-import onnx.onnx_cpp2py_export.checker as c_checker
+from onnx.onnx_cpp2py_export import checker as c_checker
 from onnx import ModelProto, NodeProto, IR_VERSION
 
 
