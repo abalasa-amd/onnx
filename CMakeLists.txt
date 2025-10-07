@@ -430,7 +430,7 @@ if(BUILD_ONNX_PYTHON)
     endif()
   endif()
 
-  add_library(onnx_cpp2py_export MODULE "${ONNX_ROOT}/onnx/cpp2py_export.cc")
+  add_library(onnx_cpp2py_export STATIC "${ONNX_ROOT}/onnx/cpp2py_export.cc")
   set_target_properties(onnx_cpp2py_export PROPERTIES PREFIX "")
   set_target_properties(onnx_cpp2py_export
                         PROPERTIES COMPILE_FLAGS "-fvisibility=hidden")
