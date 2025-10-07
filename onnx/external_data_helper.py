@@ -10,7 +10,7 @@ import uuid
 from itertools import chain
 from typing import TYPE_CHECKING, Callable
 
-import onnx.onnx_cpp2py_export.checker as c_checker
+from onnx.onnx_cpp2py_export import checker as c_checker
 from onnx.onnx_pb import (
     AttributeProto,
     FunctionProto,

@@ -7,7 +7,7 @@ from collections import namedtuple
 from typing import TYPE_CHECKING, Any, NewType
 
 import onnx.checker
-import onnx.onnx_cpp2py_export.checker as c_checker
+from onnx.onnx_cpp2py_export import checker as c_checker
 from onnx import IR_VERSION, ModelProto, NodeProto
 
 if TYPE_CHECKING:

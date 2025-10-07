@@ -16,7 +16,7 @@ import numpy as np
 import onnx
 import onnx.external_data_helper as ext_data
 import onnx.helper
-import onnx.onnx_cpp2py_export.checker as c_checker
+from onnx.onnx_cpp2py_export import checker as c_checker
 
 if TYPE_CHECKING:
     from collections.abc import Iterable

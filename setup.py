@@ -27,7 +27,7 @@ import setuptools.command.build_py
 import setuptools.command.develop
 
 TOP_DIR = os.path.realpath(os.path.dirname(__file__))
-CMAKE_BUILD_DIR = os.path.join(TOP_DIR, ".setuptools-cmake-build")
+CMAKE_BUILD_DIR = os.getenv("ONNX_BUILD_DIR")
 
 WINDOWS = os.name == "nt"
 
@@ -165,14 +165,27 @@ class CmakeBuild(setuptools.Command):
 
         os.makedirs(CMAKE_BUILD_DIR, exist_ok=True)
 
+        link_path = os.getenv("ONNX_LINK_PATH")
+        prefix_path = os.getenv("ONNX_PREFIX_PATH")
+        py_prefix = os.getenv("ONNX_PY_PREFIX")
+        py_lib = os.getenv("ONNX_PY_LIB")
+        py_include = os.getenv("ONNX_PY_INCLUDE")
+        py_exe = os.getenv("ONNX_PY_EXE")
+
         with cd(CMAKE_BUILD_DIR):
             build_type = "Release"
             # configure
             cmake_args = [
                 CMAKE,
-                f"-DPython3_EXECUTABLE={get_python_execute()}",
+                f"-DPYTHON_INCLUDE_DIRS={py_include}",
+                f"-DPYTHON_EXECUTABLE={py_exe}",
+                f"-DCMAKE_PREFIX_PATH={prefix_path}",
+                f"-DCMAKE_LIBRARY_PATH={link_path}",
+                f"-DPYTHON_PREFIX={py_prefix}",
+                f"-DPYTHON_LIBRARIES={py_lib}",
                 "-DONNX_BUILD_PYTHON=ON",
                 f"-DONNX_NAMESPACE={ONNX_NAMESPACE}",
+                "-DONNX_USE_LITE_PROTO=OFF", # Protobuf_USE_STATIC_LIBS by default
             ]
             if COVERAGE:
                 cmake_args.append("-DONNX_COVERAGE=ON")
@@ -180,6 +193,7 @@ class CmakeBuild(setuptools.Command):
                 # in order to get accurate coverage information, the
                 # build needs to turn off optimizations
                 build_type = "Debug"
+            build_type = os.getenv("ONNX_BUILD_TYPE")
             cmake_args.append(f"-DCMAKE_BUILD_TYPE={build_type}")
             if WINDOWS:
                 if USE_MSVC_STATIC_RUNTIME:

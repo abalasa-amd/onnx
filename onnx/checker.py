@@ -26,7 +26,7 @@ import sys
 from typing import TYPE_CHECKING
 
 import onnx.defs
-import onnx.onnx_cpp2py_export.checker as C  # noqa: N812
+from onnx.onnx_cpp2py_export import checker as C  # noqa: N812
 from onnx.onnx_pb import IR_VERSION
 
 if TYPE_CHECKING:

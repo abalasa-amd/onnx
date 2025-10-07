@@ -21,7 +21,7 @@ __all__ = [
 ]
 
 import onnx
-import onnx.onnx_cpp2py_export.defs as C  # noqa: N812
+from onnx.onnx_cpp2py_export import defs as C  # noqa: N812
 
 ONNX_DOMAIN = ""
 ONNX_ML_DOMAIN = "ai.onnx.ml"
