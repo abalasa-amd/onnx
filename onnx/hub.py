@@ -15,8 +15,8 @@ import sys
 from io import BytesIO
 from os.path import join
 from typing import IO, Any, cast
-from urllib.error import HTTPError
-from urllib.request import urlopen
+# from urllib.error import HTTPError
+# from urllib.request import urlopen
 
 import onnx
 
