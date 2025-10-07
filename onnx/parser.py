@@ -4,7 +4,7 @@
 from __future__ import annotations
 
 import onnx
-import onnx.onnx_cpp2py_export.parser as C  # noqa: N812
+from onnx.onnx_cpp2py_export import parser as C  # noqa: N812
 
 
 class ParseError(Exception):
